@@ -1,0 +1,14 @@
+﻿<Window x:Class="ClassRoom.Views.NoteView.NoteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NoteView" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Note/DesignerItem.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Canvas Name="NoteCanvas"  Background="#FFC1D0D0" MouseDown="NoteCanvas_MouseDown"></Canvas>
+</Window>

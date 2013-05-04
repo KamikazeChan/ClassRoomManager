@@ -117,6 +117,13 @@
           <Property Name="Addtime" Type="date" />
           <Property Name="Title" Type="nvarchar" MaxLength="25" />
           <Property Name="NUserID" Type="int" />
+          <Property Name="RotateAngle" Type="float" />
+          <Property Name="RotateCenterX" Type="float" />
+          <Property Name="RotateCenterY" Type="float" />
+          <Property Name="X" Type="float" />
+          <Property Name="Y" Type="float" />
+          <Property Name="Width" Type="float" />
+          <Property Name="Height" Type="float" />
         </EntityType>
         <EntityType Name="Photos">
           <Key>
@@ -454,6 +461,13 @@
           <Property Type="String" Name="Title" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="NUserID" />
           <NavigationProperty Name="User" Relationship="ClassRoomModel.FK_Users_Notes" FromRole="Note" ToRole="User" />
+          <Property Type="Double" Name="RotateAngle" />
+          <Property Type="Double" Name="RotateCenterX" />
+          <Property Type="Double" Name="RotateCenterY" />
+          <Property Type="Double" Name="X" />
+          <Property Type="Double" Name="Y" />
+          <Property Type="Double" Name="Width" />
+          <Property Type="Double" Name="Height" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -731,6 +745,13 @@
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="ClassRoomModel.Note">
               <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="RotateCenterY" ColumnName="RotateCenterY" />
+                <ScalarProperty Name="RotateCenterX" ColumnName="RotateCenterX" />
+                <ScalarProperty Name="RotateAngle" ColumnName="RotateAngle" />
                 <ScalarProperty Name="NUserID" ColumnName="NUserID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Addtime" ColumnName="Addtime" />
@@ -823,7 +844,7 @@
         <EntityTypeShape EntityType="ClassRoomModel.Course" Width="1.5" PointX="0.75" PointY="4.875" Height="1.5879931640625031" />
         <EntityTypeShape EntityType="ClassRoomModel.Message" Width="1.5" PointX="14.25" PointY="4.25" Height="2.7341113281250031" />
         <EntityTypeShape EntityType="ClassRoomModel.Note" Width="1.5" PointX="12" PointY="4.5" Height="2.1610522460937531" />
-        <EntityTypeShape EntityType="ClassRoomModel.Photo" Width="1.5" PointX="12" PointY="7.5" Height="2.3520719401041674" />
+        <EntityTypeShape EntityType="ClassRoomModel.Photo" Width="1.5" PointX="12" PointY="8" Height="2.3520719401041674" />
         <EntityTypeShape EntityType="ClassRoomModel.Student" Width="1.5" PointX="7.5" PointY="4.625" Height="1.9700325520833388" />
         <EntityTypeShape EntityType="ClassRoomModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9700325520833388" />
         <EntityTypeShape EntityType="ClassRoomModel.Teacher" Width="1.5" PointX="3" PointY="4.375" Height="2.5430916341145888" />
@@ -858,8 +879,8 @@
           <ConnectorPoint PointX="3" PointY="5.6689965820312516" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Photos_Messages" >
-          <ConnectorPoint PointX="13.5" PointY="8.6760359700520837" />
-          <ConnectorPoint PointX="15" PointY="8.6760359700520837" />
+          <ConnectorPoint PointX="13.5" PointY="9.1760359700520837" />
+          <ConnectorPoint PointX="15" PointY="9.1760359700520837" />
           <ConnectorPoint PointX="15" PointY="6.9841113281250031" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Messages" >
@@ -871,8 +892,9 @@
           <ConnectorPoint PointX="12" PointY="5.5805261230468766" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Photos" >
-          <ConnectorPoint PointX="11.25" PointY="7.6641442871093766" />
-          <ConnectorPoint PointX="12" PointY="7.6641442871093766" />
+          <ConnectorPoint PointX="10.5" PointY="7.8282885742187531" />
+          <ConnectorPoint PointX="10.5" PointY="9.1760359700520837" />
+          <ConnectorPoint PointX="12" PointY="9.1760359700520837" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Students" >
           <ConnectorPoint PointX="9" PointY="5.6100162760416694" />

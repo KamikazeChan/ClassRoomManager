@@ -65,10 +65,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Resources\Memo\Adorners\ResizeRotateAdorner.cs" />
-    <Compile Include="Resources\Memo\Adorners\ResizeRotateChrome.cs" />
-    <Compile Include="Resources\Memo\Adorners\SizeAdorner.cs" />
-    <Compile Include="Resources\Memo\Adorners\SizeChrome.cs" />
+    <Compile Include="Model\NoteView.cs" />
+    <Compile Include="Resources\Note\Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="Resources\Note\Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="Resources\Note\Adorners\SizeAdorner.cs" />
+    <Compile Include="Resources\Note\Adorners\SizeChrome.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\RichTextBox.cs" />
     <Compile Include="Common\TicketInfo.cs" />
@@ -86,13 +87,13 @@
     <Compile Include="Model\Picture.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="Presenters\ApplicationController.cs" />
-    <Compile Include="Views\MemoView\DesignerItemDecorator.cs" />
+    <Compile Include="Views\NoteView\DesignerItemDecorator.cs" />
     <Compile Include="UserControls\EditTextBox.xaml.cs">
       <DependentUpon>EditTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MemoView\MoveThumb.cs" />
-    <Compile Include="Views\MemoView\ResizeThumb.cs" />
-    <Compile Include="Views\MemoView\RotateThumb.cs" />
+    <Compile Include="Views\NoteView\MoveThumb.cs" />
+    <Compile Include="Views\NoteView\ResizeThumb.cs" />
+    <Compile Include="Views\NoteView\RotateThumb.cs" />
     <Compile Include="Views\ArticleView\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
     </Compile>
@@ -114,8 +115,8 @@
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MemoView\MemoView.xaml.cs">
-      <DependentUpon>MemoView.xaml</DependentUpon>
+    <Compile Include="Views\NoteView\NoteView.xaml.cs">
+      <DependentUpon>NoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PersonalInfo.xaml.cs">
       <DependentUpon>PersonalInfo.xaml</DependentUpon>
@@ -156,15 +157,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Memo\DesignerItem.xaml">
+    <Page Include="Resources\Note\DesignerItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Memo\ResizeRotateChrome.xaml">
+    <Page Include="Resources\Note\ResizeRotateChrome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Memo\SizeChrome.xaml">
+    <Page Include="Resources\Note\SizeChrome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -204,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MemoView\MemoView.xaml">
+    <Page Include="Views\NoteView\NoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

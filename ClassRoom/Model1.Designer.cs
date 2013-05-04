@@ -1421,6 +1421,174 @@ namespace ClassRoom
         private Nullable<global::System.Int32> _NUserID;
         partial void OnNUserIDChanging(Nullable<global::System.Int32> value);
         partial void OnNUserIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> RotateAngle
+        {
+            get
+            {
+                return _RotateAngle;
+            }
+            set
+            {
+                OnRotateAngleChanging(value);
+                ReportPropertyChanging("RotateAngle");
+                _RotateAngle = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotateAngle");
+                OnRotateAngleChanged();
+            }
+        }
+        private Nullable<global::System.Double> _RotateAngle;
+        partial void OnRotateAngleChanging(Nullable<global::System.Double> value);
+        partial void OnRotateAngleChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> RotateCenterX
+        {
+            get
+            {
+                return _RotateCenterX;
+            }
+            set
+            {
+                OnRotateCenterXChanging(value);
+                ReportPropertyChanging("RotateCenterX");
+                _RotateCenterX = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotateCenterX");
+                OnRotateCenterXChanged();
+            }
+        }
+        private Nullable<global::System.Double> _RotateCenterX;
+        partial void OnRotateCenterXChanging(Nullable<global::System.Double> value);
+        partial void OnRotateCenterXChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> RotateCenterY
+        {
+            get
+            {
+                return _RotateCenterY;
+            }
+            set
+            {
+                OnRotateCenterYChanging(value);
+                ReportPropertyChanging("RotateCenterY");
+                _RotateCenterY = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RotateCenterY");
+                OnRotateCenterYChanged();
+            }
+        }
+        private Nullable<global::System.Double> _RotateCenterY;
+        partial void OnRotateCenterYChanging(Nullable<global::System.Double> value);
+        partial void OnRotateCenterYChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> X
+        {
+            get
+            {
+                return _X;
+            }
+            set
+            {
+                OnXChanging(value);
+                ReportPropertyChanging("X");
+                _X = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("X");
+                OnXChanged();
+            }
+        }
+        private Nullable<global::System.Double> _X;
+        partial void OnXChanging(Nullable<global::System.Double> value);
+        partial void OnXChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Y
+        {
+            get
+            {
+                return _Y;
+            }
+            set
+            {
+                OnYChanging(value);
+                ReportPropertyChanging("Y");
+                _Y = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Y");
+                OnYChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Y;
+        partial void OnYChanging(Nullable<global::System.Double> value);
+        partial void OnYChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Width
+        {
+            get
+            {
+                return _Width;
+            }
+            set
+            {
+                OnWidthChanging(value);
+                ReportPropertyChanging("Width");
+                _Width = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Width");
+                OnWidthChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Width;
+        partial void OnWidthChanging(Nullable<global::System.Double> value);
+        partial void OnWidthChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Height
+        {
+            get
+            {
+                return _Height;
+            }
+            set
+            {
+                OnHeightChanging(value);
+                ReportPropertyChanging("Height");
+                _Height = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Height");
+                OnHeightChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Height;
+        partial void OnHeightChanging(Nullable<global::System.Double> value);
+        partial void OnHeightChanged();
 
         #endregion
     
