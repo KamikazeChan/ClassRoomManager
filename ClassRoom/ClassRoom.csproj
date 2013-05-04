@@ -65,22 +65,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adorners\ResizeRotateAdorner.cs" />
-    <Compile Include="Adorners\ResizeRotateChrome.cs" />
-    <Compile Include="Adorners\SizeAdorner.cs" />
-    <Compile Include="Adorners\SizeChrome.cs" />
+    <Compile Include="Resources\Memo\Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="Resources\Memo\Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="Resources\Memo\Adorners\SizeAdorner.cs" />
+    <Compile Include="Resources\Memo\Adorners\SizeChrome.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\RichTextBox.cs" />
     <Compile Include="Common\TicketInfo.cs" />
     <Compile Include="Common\UserRoleTypeEnum.cs" />
-    <Compile Include="Entity\ArticlesEntity.cs" />
-    <Compile Include="Entity\ClassesEntity.cs" />
-    <Compile Include="Entity\MessagesEntity.cs" />
-    <Compile Include="Entity\NotesEntity.cs" />
-    <Compile Include="Entity\PhotosEntity.cs" />
-    <Compile Include="Entity\StudentsEntity.cs" />
-    <Compile Include="Entity\TeachersEntity.cs" />
-    <Compile Include="Entity\UsersEntity.cs" />
     <Compile Include="FillForm\AddTeacher.xaml.cs">
       <DependentUpon>AddTeacher.xaml</DependentUpon>
     </Compile>

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ClassRoom.Views.MemoView.MemoView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MemoView" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="MemoView" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +11,6 @@
     </Window.Resources>
 
     <Canvas Name="MemoCanvas"  Background="#FFC1D0D0" MouseDown="MemoCanvas_MouseDown">
-
+        <Button Canvas.Left="204" Canvas.Top="181" Content="Button" Height="23" Name="button1" Width="75" />
     </Canvas>
 </Window>

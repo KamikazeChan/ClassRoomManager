@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:s="clr-namespace:DiagramDesigner">
+                    xmlns:s="clr-namespace:DiagramDesigner" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="SizeChrome.xaml"/>
@@ -8,41 +8,42 @@
     </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="MoveThumbTemplate"  TargetType="{x:Type s:MoveThumb}">
-        <Rectangle Fill="Transparent"/>
+    	
+        <TextBlock x:Name="textBlock" Text="彭慧剑11月3日" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </ControlTemplate>
 
-    <Style x:Key="DesignerItemStyle" TargetType="ContentControl">
+    <Style x:Key="DesignerItemStyle" TargetType="{x:Type ContentControl}">
         <Setter Property="MinHeight" Value="50"/>
         <Setter Property="MinWidth" Value="50"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ContentControl">
+                <ControlTemplate TargetType="{x:Type ContentControl}">
                     <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                         <DockPanel Background="#FF6AB0B4">
-                            <Grid Height="29" DockPanel.Dock="Top">
+                            <Grid DockPanel.Dock="Top">
                                 <s:MoveThumb Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
-                                <Button Margin="0,0,125,0" Height="30" Width="30" HorizontalAlignment="Left">
+                                <Button x:Name="btnAdd" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment, VerticalMargin">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/ClassRoom;component/Images/add.png" />
                                     </Button.Background>
                                 </Button>
-                                <Button Margin="120,0,0,0" Width="30" Height="30" HorizontalAlignment="Right">
+                                <Button x:Name="btnClose" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment, VerticalMargin">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/ClassRoom;component/Images/exit.png" />
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <RichTextBox HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Bottom" Background="{x:Null}" />
+                            <RichTextBox x:Name="tbMemoBody" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Bottom" Background="{x:Null}" Height="Auto"  />
                         </DockPanel>
-                        <s:DesignerItemDecorator x:Name="ItemDecorator"/>
+                       <s:DesignerItemDecorator x:Name="ItemDecorator"/>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Selector.IsSelected" Value="True">
-                            <Setter TargetName="ItemDecorator" Property="ShowDecorator" Value="True"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                		<Trigger Property="Selector.IsSelected" Value="True">
+                			<Setter TargetName="ItemDecorator" Property="ShowDecorator" Value="True"/>
+                		</Trigger>
+                	</ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
