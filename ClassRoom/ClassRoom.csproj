@@ -65,7 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\ColorHelpers.cs" />
+    <Compile Include="Common\DataStatusEnum.cs" />
     <Compile Include="Model\NoteView.cs" />
+    <Compile Include="Presenters\ColorBrushConverter.cs" />
     <Compile Include="Resources\Note\Adorners\ResizeRotateAdorner.cs" />
     <Compile Include="Resources\Note\Adorners\ResizeRotateChrome.cs" />
     <Compile Include="Resources\Note\Adorners\SizeAdorner.cs" />
@@ -165,7 +168,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Note\SCrollViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Note\SizeChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

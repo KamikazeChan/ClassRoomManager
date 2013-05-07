@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClassRoom.Common;
 
 namespace ClassRoom.Model
 {
-    class NoteView:Note
+    public class NoteEntity 
     {
-        DateTime modifiedTime { get; set; }
+        public Note Note { get; set; }
+        public DataStatusEnum DataStatus { set; get; }
     }
 }

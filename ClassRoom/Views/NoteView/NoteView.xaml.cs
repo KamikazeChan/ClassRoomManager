@@ -11,6 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
+using DiagramDesigner;
+using ClassRoom.Model;
+using ClassRoom.Common;
+using System.IO;
 
 namespace ClassRoom.Views.NoteView
 {
@@ -19,6 +23,8 @@ namespace ClassRoom.Views.NoteView
     /// </summary>
     public partial class NoteView : Window
     {
+        private int newNoteCount = 0;
+
         public NoteView()
         {
             InitializeComponent();
@@ -27,48 +33,114 @@ namespace ClassRoom.Views.NoteView
         ClassRoomEntities entities;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            InitCanvas();
+        }
+
+        private void InitCanvas()
+        {
+            noteList = new List<NoteEntity>();
             entities = new ClassRoomEntities();
+
             var notes = from m in entities.Notes
                         where m.NUserID == 4
                         select m;
-            notes.ToList().ForEach(m=>{
-                ContentControl note = CreateNote(m);
-                NoteCanvas.Children.Add(note);
+
+            List<Note> list = notes.ToList();
+
+            //InitNoteResources();
+
+            list.ForEach(m =>
+            {
+                NoteEntity entity = new NoteEntity { Note = m, DataStatus = DataStatusEnum.Default };
+                noteList.Add(entity);
+                CreateNote(entity);
             });
         }
 
-        private ContentControl CreateNote(Note note)
+        private void InitNoteResources()
         {
-            ContentControl Note = new ContentControl();
-            Note.Name = "Note" + note.NoteID;
+            CollectionViewSource articlesViewSource = ((CollectionViewSource)(this.FindResource("NoteDataSource")));
+            articlesViewSource.Source = entities.Notes.Execute(System.Data.Objects.MergeOption.AppendOnly);
+        }
+
+        private void CreateNote(NoteEntity note)
+        {
+            ContentControl noteControl = new ContentControl();
+            noteControl.Name = "Note" + newNoteCount++;
+            noteControl.Tag = note;
             Style template = this.TryFindResource("DesignerItemStyle") as Style;
-            Note.Style = template;
-            Note.Width = 200;
-            Note.Height = 200;            
-            Canvas.SetTop(Note,20);
-            Canvas.SetLeft(Note, 20);
+            noteControl.Style = template;
+            noteControl.ApplyTemplate();
+            SolidColorBrush brush = new SolidColorBrush();
+            brush.Color = ColorHelpers.GetColorByName(note.Note.Color);
+            noteControl.Background = brush;
+            noteControl.Width = note.Note.Width;
+            noteControl.Height = note.Note.Height;
+            Canvas.SetTop(noteControl, note.Note.Y);
+            Canvas.SetLeft(noteControl, note.Note.X);
+            Transform rotate = new RotateTransform(note.Note.RotateAngle, note.Note.RotateCenterX, note.Note.RotateCenterY);
+            noteControl.RenderTransform = rotate;
 
-            Transform rotate = new RotateTransform(30,0.0,0.0);
-            Note.RenderTransform = rotate;
+            Button btnClose = noteControl.Template.FindName("btnClose", noteControl) as Button;
+            Button btnChangeColor = noteControl.Template.FindName("btnChangeColor", noteControl) as Button;
+            RichTextBox rtbBody = noteControl.Template.FindName("rtbNoteBody", noteControl) as RichTextBox;
 
-            Note.ApplyTemplate();
+            rtbBody.LoadFromRTF(note.Note.Body);
+            //SetValueToRichTextBox(note, rtbBody);            
 
-            Button btnClose = Note.Template.FindName("btnClose", Note) as Button;
+            MoveThumb moveThumb = noteControl.Template.FindName("moveThumb", noteControl) as MoveThumb;
+            moveThumb.ApplyTemplate();
+            TextBlock txtTitle = moveThumb.Template.FindName("txtTitle", moveThumb) as TextBlock;
+
+            txtTitle.Text = note.Note.User == null ? "新建" : note.Note.User.Realname + note.Note.AddTime.ToShortDateString();
             btnClose.Click += new RoutedEventHandler(btnClose_Click);
-            btnClose.Tag = Note;
-            return Note;
+            btnChangeColor.Click += new RoutedEventHandler(btnChangeColor_Click);
+
+            rtbBody.TextChanged += new TextChangedEventHandler(rtbBody_TextChanged);
+
+            this.NoteCanvas.Children.Add(noteControl);
+        }       
+
+        void btnChangeColor_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContentControl control = btn.TemplatedParent as ContentControl;
+            Grid grid = btn.Parent as Grid;
+            DockPanel panel = grid.Parent as DockPanel;
+
+            NoteEntity note = control.Tag as NoteEntity;
+            SolidColorBrush brush = new SolidColorBrush();
+            brush.Color = ColorHelpers.GetRandomLightColor();
+
+            control.Background = brush;
+
+            note.Note.Color = ColorHelpers.GetColorName(brush.Color);
+            note.DataStatus = DataStatusEnum.Updated;
+
+        }
+
+        void rtbBody_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RichTextBox text = sender as RichTextBox;
+            ContentControl control = text.TemplatedParent as ContentControl;
+            NoteEntity note = control.Tag as NoteEntity;
+            //TextRange range = new TextRange(text.Document.ContentStart, text.Document.ContentEnd);
+            note.Note.Body = text.RTF();
+            note.DataStatus = DataStatusEnum.Updated;
         }
 
         void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            ContentControl control = btn.Tag as ContentControl;
-            MessageBoxResult result = MessageBox.Show("确定要删除","删除留言",MessageBoxButton.YesNo);
+            ContentControl control = btn.TemplatedParent as ContentControl;
+            NoteEntity note = control.Tag as NoteEntity;
+            MessageBoxResult result = MessageBox.Show("确定要删除", "删除留言", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
+                note.DataStatus = DataStatusEnum.Deleted;
                 this.NoteCanvas.Children.Remove(control);
             }
-        }        
+        }
 
         private void NoteCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -85,28 +157,60 @@ namespace ClassRoom.Views.NoteView
 
         private void SaveNotes()
         {
-            foreach (Control control in this.NoteCanvas.Children)
+            noteList.ForEach(m =>
             {
-                if (control.Name.StartsWith("Note"))
+                switch (m.DataStatus)
                 {
-                    Note note = new Note();
-                    RichTextBox rtb = control.Template.FindName("tbNoteBody", control) as RichTextBox;
-                    RotateTransform rotate = control.RenderTransform as RotateTransform;
-                    TextRange range = new TextRange(rtb.Document.ContentStart,rtb.Document.ContentEnd);
-
-                    note.Body = range.Text;
-                    note.RotateCenterX = rotate.CenterX;
-                    note.RotateCenterY = rotate.CenterY;
-                    note.RotateAngle = rotate.Angle;
-                    note.X = Canvas.GetTop(control);
-                    note.Y = Canvas.GetLeft(control);
-                    note.Width = control.Width;
-                    note.Height = control.Height;
-                    note.NUserID = Common.CommonClass.UserTicket.UserNO;
-                    note.Addtime = DateTime.Now;
+                    case DataStatusEnum.Added:
+                        entities.Notes.AddObject(m.Note);
+                        break;
+                    case DataStatusEnum.Deleted:
+                        entities.Notes.DeleteObject(m.Note);
+                        break;
+                    case DataStatusEnum.Updated:
+                        if (m.Note.NoteID == 0)
+                            entities.Notes.AddObject(m.Note);
+                        else
+                            entities.Notes.ApplyCurrentValues(m.Note);
+                        break;
+                }
+            });
+            try
+            {
+                if (entities.SaveChanges() > 0)
+                {
+                    MessageBox.Show("保存成功");
+                    entities.Dispose();
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException.ToString());
+            }
         }
-       
+
+        private void MenuItem_NewNote(object sender, RoutedEventArgs e)
+        {
+            NoteEntity note = new NoteEntity();
+            note.Note = new Note();
+            note.Note.Color = "LightBlue";
+            note.Note.NoteID = 0;
+            note.Note.Width = 200;
+            note.Note.Height = 200;
+            //note.User = Common.CommonClass.UserTicket.UserInfo;
+            note.Note.NUserID = 4;
+            note.Note.AddTime = DateTime.Now;
+            Point position = Mouse.GetPosition(NoteCanvas);
+            position.Offset(-35, -15);
+            note.Note.Y = position.Y;
+            note.Note.X = position.X;
+            note.Note.Body = "";
+            note.DataStatus = DataStatusEnum.Added;
+            noteList.Add(note);
+
+            CreateNote(note);
+        }
+
+        public List<NoteEntity> noteList { get; set; }
     }
 }

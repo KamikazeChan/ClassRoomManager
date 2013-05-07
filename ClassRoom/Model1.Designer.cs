@@ -27,10 +27,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Teachers_Courses", "Course", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ClassRoom.Course), "Teacher", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Teacher), true)]
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Photos_Messages", "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ClassRoom.Photo), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Message), true)]
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Messages", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ClassRoom.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Message), true)]
-[assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Notes", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ClassRoom.User), "Note", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Note), true)]
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Photos", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ClassRoom.User), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Photo), true)]
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Students", "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ClassRoom.Student), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.User), true)]
 [assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Teachers", "Teacher", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(ClassRoom.Teacher), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.User), true)]
+[assembly: EdmRelationshipAttribute("ClassRoomModel", "FK_Users_Notes", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(ClassRoom.User), "Note", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(ClassRoom.Note), true)]
 
 #endregion
 
@@ -149,22 +149,6 @@ namespace ClassRoom
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<Note> Notes
-        {
-            get
-            {
-                if ((_Notes == null))
-                {
-                    _Notes = base.CreateObjectSet<Note>("Notes");
-                }
-                return _Notes;
-            }
-        }
-        private ObjectSet<Note> _Notes;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
         public ObjectSet<Photo> Photos
         {
             get
@@ -241,6 +225,22 @@ namespace ClassRoom
             }
         }
         private ObjectSet<User> _Users;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<Note> Notes
+        {
+            get
+            {
+                if ((_Notes == null))
+                {
+                    _Notes = base.CreateObjectSet<Note>("Notes");
+                }
+                return _Notes;
+            }
+        }
+        private ObjectSet<Note> _Notes;
 
         #endregion
         #region AddTo 方法
@@ -275,14 +275,6 @@ namespace ClassRoom
         public void AddToMessages(Message message)
         {
             base.AddObject("Messages", message);
-        }
-    
-        /// <summary>
-        /// 用于向 Notes EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddToNotes(Note note)
-        {
-            base.AddObject("Notes", note);
         }
     
         /// <summary>
@@ -323,6 +315,14 @@ namespace ClassRoom
         public void AddToUsers(User user)
         {
             base.AddObject("Users", user);
+        }
+    
+        /// <summary>
+        /// 用于向 Notes EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToNotes(Note note)
+        {
+            base.AddObject("Notes", note);
         }
 
         #endregion
@@ -1289,10 +1289,28 @@ namespace ClassRoom
         /// 创建新的 Note 对象。
         /// </summary>
         /// <param name="noteID">NoteID 属性的初始值。</param>
-        public static Note CreateNote(global::System.Int32 noteID)
+        /// <param name="body">Body 属性的初始值。</param>
+        /// <param name="addTime">AddTime 属性的初始值。</param>
+        /// <param name="rotateAngle">RotateAngle 属性的初始值。</param>
+        /// <param name="rotateCenterX">RotateCenterX 属性的初始值。</param>
+        /// <param name="rotateCenterY">RotateCenterY 属性的初始值。</param>
+        /// <param name="x">X 属性的初始值。</param>
+        /// <param name="y">Y 属性的初始值。</param>
+        /// <param name="width">Width 属性的初始值。</param>
+        /// <param name="height">Height 属性的初始值。</param>
+        public static Note CreateNote(global::System.Int32 noteID, global::System.String body, global::System.DateTime addTime, global::System.Double rotateAngle, global::System.Double rotateCenterX, global::System.Double rotateCenterY, global::System.Double x, global::System.Double y, global::System.Double width, global::System.Double height)
         {
             Note note = new Note();
             note.NoteID = noteID;
+            note.Body = body;
+            note.AddTime = addTime;
+            note.RotateAngle = rotateAngle;
+            note.RotateCenterX = rotateCenterX;
+            note.RotateCenterY = rotateCenterY;
+            note.X = x;
+            note.Y = y;
+            note.Width = width;
+            note.Height = height;
             return note;
         }
 
@@ -1329,7 +1347,7 @@ namespace ClassRoom
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Body
         {
@@ -1341,7 +1359,7 @@ namespace ClassRoom
             {
                 OnBodyChanging(value);
                 ReportPropertyChanging("Body");
-                _Body = StructuralObject.SetValidValue(value, true);
+                _Body = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Body");
                 OnBodyChanged();
             }
@@ -1353,26 +1371,26 @@ namespace ClassRoom
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Addtime
+        public global::System.DateTime AddTime
         {
             get
             {
-                return _Addtime;
+                return _AddTime;
             }
             set
             {
-                OnAddtimeChanging(value);
-                ReportPropertyChanging("Addtime");
-                _Addtime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Addtime");
-                OnAddtimeChanged();
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Addtime;
-        partial void OnAddtimeChanging(Nullable<global::System.DateTime> value);
-        partial void OnAddtimeChanged();
+        private global::System.DateTime _AddTime;
+        partial void OnAddTimeChanging(global::System.DateTime value);
+        partial void OnAddTimeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -1425,9 +1443,9 @@ namespace ClassRoom
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> RotateAngle
+        public global::System.Double RotateAngle
         {
             get
             {
@@ -1442,16 +1460,16 @@ namespace ClassRoom
                 OnRotateAngleChanged();
             }
         }
-        private Nullable<global::System.Double> _RotateAngle;
-        partial void OnRotateAngleChanging(Nullable<global::System.Double> value);
+        private global::System.Double _RotateAngle;
+        partial void OnRotateAngleChanging(global::System.Double value);
         partial void OnRotateAngleChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> RotateCenterX
+        public global::System.Double RotateCenterX
         {
             get
             {
@@ -1466,16 +1484,16 @@ namespace ClassRoom
                 OnRotateCenterXChanged();
             }
         }
-        private Nullable<global::System.Double> _RotateCenterX;
-        partial void OnRotateCenterXChanging(Nullable<global::System.Double> value);
+        private global::System.Double _RotateCenterX;
+        partial void OnRotateCenterXChanging(global::System.Double value);
         partial void OnRotateCenterXChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> RotateCenterY
+        public global::System.Double RotateCenterY
         {
             get
             {
@@ -1490,16 +1508,16 @@ namespace ClassRoom
                 OnRotateCenterYChanged();
             }
         }
-        private Nullable<global::System.Double> _RotateCenterY;
-        partial void OnRotateCenterYChanging(Nullable<global::System.Double> value);
+        private global::System.Double _RotateCenterY;
+        partial void OnRotateCenterYChanging(global::System.Double value);
         partial void OnRotateCenterYChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> X
+        public global::System.Double X
         {
             get
             {
@@ -1514,16 +1532,16 @@ namespace ClassRoom
                 OnXChanged();
             }
         }
-        private Nullable<global::System.Double> _X;
-        partial void OnXChanging(Nullable<global::System.Double> value);
+        private global::System.Double _X;
+        partial void OnXChanging(global::System.Double value);
         partial void OnXChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> Y
+        public global::System.Double Y
         {
             get
             {
@@ -1538,16 +1556,16 @@ namespace ClassRoom
                 OnYChanged();
             }
         }
-        private Nullable<global::System.Double> _Y;
-        partial void OnYChanging(Nullable<global::System.Double> value);
+        private global::System.Double _Y;
+        partial void OnYChanging(global::System.Double value);
         partial void OnYChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> Width
+        public global::System.Double Width
         {
             get
             {
@@ -1562,16 +1580,16 @@ namespace ClassRoom
                 OnWidthChanged();
             }
         }
-        private Nullable<global::System.Double> _Width;
-        partial void OnWidthChanging(Nullable<global::System.Double> value);
+        private global::System.Double _Width;
+        partial void OnWidthChanging(global::System.Double value);
         partial void OnWidthChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> Height
+        public global::System.Double Height
         {
             get
             {
@@ -1586,9 +1604,33 @@ namespace ClassRoom
                 OnHeightChanged();
             }
         }
-        private Nullable<global::System.Double> _Height;
-        partial void OnHeightChanging(Nullable<global::System.Double> value);
+        private global::System.Double _Height;
+        partial void OnHeightChanging(global::System.Double value);
         partial void OnHeightChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Color
+        {
+            get
+            {
+                return _Color;
+            }
+            set
+            {
+                OnColorChanging(value);
+                ReportPropertyChanging("Color");
+                _Color = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Color");
+                OnColorChanged();
+            }
+        }
+        private global::System.String _Color;
+        partial void OnColorChanging(global::System.String value);
+        partial void OnColorChanged();
 
         #endregion
     
@@ -2779,28 +2821,6 @@ namespace ClassRoom
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ClassRoomModel", "FK_Users_Notes", "Note")]
-        public EntityCollection<Note> Notes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Note>("ClassRoomModel.FK_Users_Notes", "Note");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Note>("ClassRoomModel.FK_Users_Notes", "Note", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("ClassRoomModel", "FK_Users_Photos", "Photo")]
         public EntityCollection<Photo> Photos
         {
@@ -2889,6 +2909,28 @@ namespace ClassRoom
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Teacher>("ClassRoomModel.FK_Users_Teachers", "Teacher", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ClassRoomModel", "FK_Users_Notes", "Note")]
+        public EntityCollection<Note> Notes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Note>("ClassRoomModel.FK_Users_Notes", "Note");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Note>("ClassRoomModel.FK_Users_Notes", "Note", value);
                 }
             }
         }

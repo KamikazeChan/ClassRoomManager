@@ -9,6 +9,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <Canvas Name="NoteCanvas"  Background="#FFC1D0D0" MouseDown="NoteCanvas_MouseDown"></Canvas>
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" Style="{DynamicResource SimpleScrollViewer}" VerticalScrollBarVisibility="Visible">
+        <Canvas Name="NoteCanvas"   Background="#FFC1D0D0" MouseLeftButtonDown="NoteCanvas_MouseDown" Width="2000" Height="4000">
+            <Canvas.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="新建留言" Click="MenuItem_NewNote"/>
+                    <!--<MenuItem Header="更换背景色" Click="MenuItem_ChangeColor"/>-->
+                </ContextMenu>
+            </Canvas.ContextMenu>
+        </Canvas>
+    </ScrollViewer>
 </Window>

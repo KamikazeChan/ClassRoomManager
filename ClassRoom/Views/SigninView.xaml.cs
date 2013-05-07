@@ -55,9 +55,7 @@ namespace ClassRoom.Views
                 ticket.ClassName = entity.Student.Class.ClassName;
             }
             ticket.LoginTime = DateTime.Now;
-            ticket.UserNO = entity.UserID;
-            ticket.UserName = entity.Realname;
-            ticket.UserTypeID = entity.UserRole.Value;
+            ticket.UserInfo = entity;            
             return ticket;
         }
         #endregion

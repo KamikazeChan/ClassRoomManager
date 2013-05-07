@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using ClassRoom.Model;
 
 namespace DiagramDesigner
 {
@@ -40,6 +41,11 @@ namespace DiagramDesigner
 
                 Canvas.SetLeft(this.designerItem, Canvas.GetLeft(this.designerItem) + dragDelta.X);
                 Canvas.SetTop(this.designerItem, Canvas.GetTop(this.designerItem) + dragDelta.Y);
+
+                NoteEntity note = this.designerItem.Tag as NoteEntity;
+                note.DataStatus = ClassRoom.Common.DataStatusEnum.Updated;
+                note.Note.X = Canvas.GetLeft(this.designerItem);
+                note.Note.Y = Canvas.GetTop(this.designerItem);
             }
         }
     }

@@ -26,19 +26,19 @@ namespace ClassRoom.Common
 
         public static void LoadFromRTF(this RichTextBox richTextBox, string rtf)
         {
-            if (string.IsNullOrEmpty(rtf))
+            if (!string.IsNullOrEmpty(rtf))
             {
-                throw new ArgumentNullException();
-            }
-            TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (StreamWriter sw = new StreamWriter(ms))
+
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    sw.Write(rtf);
-                    sw.Flush();
-                    ms.Seek(0, SeekOrigin.Begin);
-                    textRange.Load(ms, DataFormats.Rtf);
+                    using (StreamWriter sw = new StreamWriter(ms))
+                    {
+                        sw.Write(rtf);
+                        sw.Flush();
+                        ms.Seek(0, SeekOrigin.Begin);
+                        textRange.Load(ms, DataFormats.Rtf);
+                    }
                 }
             }
         }

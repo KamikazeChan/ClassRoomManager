@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using ClassRoom.Model;
 
 namespace DiagramDesigner
 {
@@ -18,8 +19,21 @@ namespace DiagramDesigner
 
         public RotateThumb()
         {
+            DragCompleted += new DragCompletedEventHandler(RotateThumb_DragCompleted);
             DragDelta += new DragDeltaEventHandler(this.RotateThumb_DragDelta);
             DragStarted += new DragStartedEventHandler(this.RotateThumb_DragStarted);
+        }
+
+        void RotateThumb_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            if (this.designerItem != null && this.canvas != null)
+            {                
+                NoteEntity note = this.designerItem.Tag as NoteEntity;
+                note.DataStatus = ClassRoom.Common.DataStatusEnum.Updated;
+                note.Note.RotateCenterX = rotateTransform.CenterX;
+                note.Note.RotateCenterY = rotateTransform.CenterY;
+                note.Note.RotateAngle = rotateTransform.Angle;
+            }
         }
 
         private void RotateThumb_DragStarted(object sender, DragStartedEventArgs e)
@@ -66,6 +80,7 @@ namespace DiagramDesigner
                 RotateTransform rotateTransform = this.designerItem.RenderTransform as RotateTransform;
                 rotateTransform.Angle = this.initialAngle + Math.Round(angle, 0);
                 this.designerItem.InvalidateMeasure();
+
             }
         }
     }

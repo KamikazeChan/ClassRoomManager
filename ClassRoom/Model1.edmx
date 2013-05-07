@@ -113,17 +113,18 @@
             <PropertyRef Name="NoteID" />
           </Key>
           <Property Name="NoteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Body" Type="varchar" MaxLength="1000" />
-          <Property Name="Addtime" Type="date" />
+          <Property Name="Body" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="AddTime" Type="date" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="25" />
           <Property Name="NUserID" Type="int" />
-          <Property Name="RotateAngle" Type="float" />
-          <Property Name="RotateCenterX" Type="float" />
-          <Property Name="RotateCenterY" Type="float" />
-          <Property Name="X" Type="float" />
-          <Property Name="Y" Type="float" />
-          <Property Name="Width" Type="float" />
-          <Property Name="Height" Type="float" />
+          <Property Name="RotateAngle" Type="float" Nullable="false" />
+          <Property Name="RotateCenterX" Type="float" Nullable="false" />
+          <Property Name="RotateCenterY" Type="float" Nullable="false" />
+          <Property Name="X" Type="float" Nullable="false" />
+          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="Width" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Photos">
           <Key>
@@ -343,7 +344,6 @@
           <EntitySet Name="Classes" EntityType="ClassRoomModel.Class" />
           <EntitySet Name="Courses" EntityType="ClassRoomModel.Course" />
           <EntitySet Name="Messages" EntityType="ClassRoomModel.Message" />
-          <EntitySet Name="Notes" EntityType="ClassRoomModel.Note" />
           <EntitySet Name="Photos" EntityType="ClassRoomModel.Photo" />
           <EntitySet Name="Students" EntityType="ClassRoomModel.Student" />
           <EntitySet Name="sysdiagrams" EntityType="ClassRoomModel.sysdiagram" />
@@ -385,10 +385,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Notes" Association="ClassRoomModel.FK_Users_Notes">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Note" EntitySet="Notes" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_Photos" Association="ClassRoomModel.FK_Users_Photos">
             <End Role="User" EntitySet="Users" />
             <End Role="Photo" EntitySet="Photos" />
@@ -400,6 +396,11 @@
           <AssociationSet Name="FK_Users_Teachers" Association="ClassRoomModel.FK_Users_Teachers">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Notes" EntityType="ClassRoomModel.Note" />
+          <AssociationSet Name="FK_Users_Notes" Association="ClassRoomModel.FK_Users_Notes">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Note" EntitySet="Notes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Article">
@@ -450,24 +451,6 @@
           <NavigationProperty Name="Article" Relationship="ClassRoomModel.FK_Articles_Messages" FromRole="Message" ToRole="Article" />
           <NavigationProperty Name="Photo" Relationship="ClassRoomModel.FK_Photos_Messages" FromRole="Message" ToRole="Photo" />
           <NavigationProperty Name="User" Relationship="ClassRoomModel.FK_Users_Messages" FromRole="Message" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Note">
-          <Key>
-            <PropertyRef Name="NoteID" />
-          </Key>
-          <Property Type="Int32" Name="NoteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Body" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="Addtime" />
-          <Property Type="String" Name="Title" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="NUserID" />
-          <NavigationProperty Name="User" Relationship="ClassRoomModel.FK_Users_Notes" FromRole="Note" ToRole="User" />
-          <Property Type="Double" Name="RotateAngle" />
-          <Property Type="Double" Name="RotateCenterX" />
-          <Property Type="Double" Name="RotateCenterY" />
-          <Property Type="Double" Name="X" />
-          <Property Type="Double" Name="Y" />
-          <Property Type="Double" Name="Width" />
-          <Property Type="Double" Name="Height" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -532,10 +515,10 @@
           <Property Type="Int32" Name="UserRole" />
           <NavigationProperty Name="Articles" Relationship="ClassRoomModel.FK_Users_Artcles" FromRole="User" ToRole="Article" />
           <NavigationProperty Name="Messages" Relationship="ClassRoomModel.FK_Users_Messages" FromRole="User" ToRole="Message" />
-          <NavigationProperty Name="Notes" Relationship="ClassRoomModel.FK_Users_Notes" FromRole="User" ToRole="Note" />
           <NavigationProperty Name="Photos" Relationship="ClassRoomModel.FK_Users_Photos" FromRole="User" ToRole="Photo" />
           <NavigationProperty Name="Student" Relationship="ClassRoomModel.FK_Users_Students" FromRole="User" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="ClassRoomModel.FK_Users_Teachers" FromRole="User" ToRole="Teacher" />
+          <NavigationProperty Name="Notes" Relationship="ClassRoomModel.FK_Users_Notes" FromRole="User" ToRole="Note" />
         </EntityType>
         <Association Name="FK_Articles_Messages">
           <End Type="ClassRoomModel.Article" Role="Article" Multiplicity="0..1" />
@@ -645,18 +628,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Notes">
-          <End Type="ClassRoomModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ClassRoomModel.Note" Role="Note" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Note">
-              <PropertyRef Name="NUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Photos">
           <End Type="ClassRoomModel.User" Role="User" Multiplicity="0..1" />
           <End Type="ClassRoomModel.Photo" Role="Photo" Multiplicity="*" />
@@ -690,6 +661,37 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Type="Int32" Name="NoteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AddTime" Nullable="false" />
+          <Property Type="String" Name="Title" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="NUserID" />
+          <Property Type="Double" Name="RotateAngle" Nullable="false" />
+          <Property Type="Double" Name="RotateCenterX" Nullable="false" />
+          <Property Type="Double" Name="RotateCenterY" Nullable="false" />
+          <Property Type="Double" Name="X" Nullable="false" />
+          <Property Type="Double" Name="Y" Nullable="false" />
+          <Property Type="Double" Name="Width" Nullable="false" />
+          <Property Type="Double" Name="Height" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ClassRoomModel.FK_Users_Notes" FromRole="Note" ToRole="User" />
+          <Property Type="String" Name="Color" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Users_Notes">
+          <End Type="ClassRoomModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ClassRoomModel.Note" Role="Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="NUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -739,24 +741,6 @@
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="MessageID" ColumnName="MessageID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notes">
-            <EntityTypeMapping TypeName="ClassRoomModel.Note">
-              <MappingFragment StoreEntitySet="Notes">
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Y" ColumnName="Y" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="RotateCenterY" ColumnName="RotateCenterY" />
-                <ScalarProperty Name="RotateCenterX" ColumnName="RotateCenterX" />
-                <ScalarProperty Name="RotateAngle" ColumnName="RotateAngle" />
-                <ScalarProperty Name="NUserID" ColumnName="NUserID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Addtime" ColumnName="Addtime" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -818,6 +802,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="ClassRoomModel.Note">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="RotateCenterY" ColumnName="RotateCenterY" />
+                <ScalarProperty Name="RotateCenterX" ColumnName="RotateCenterX" />
+                <ScalarProperty Name="RotateAngle" ColumnName="RotateAngle" />
+                <ScalarProperty Name="NUserID" ColumnName="NUserID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -843,7 +846,6 @@
         <EntityTypeShape EntityType="ClassRoomModel.Class" Width="1.5" PointX="5.25" PointY="4.125" Height="2.9251310221354245" />
         <EntityTypeShape EntityType="ClassRoomModel.Course" Width="1.5" PointX="0.75" PointY="4.875" Height="1.5879931640625031" />
         <EntityTypeShape EntityType="ClassRoomModel.Message" Width="1.5" PointX="14.25" PointY="4.25" Height="2.7341113281250031" />
-        <EntityTypeShape EntityType="ClassRoomModel.Note" Width="1.5" PointX="12" PointY="4.5" Height="2.1610522460937531" />
         <EntityTypeShape EntityType="ClassRoomModel.Photo" Width="1.5" PointX="12" PointY="8" Height="2.3520719401041674" />
         <EntityTypeShape EntityType="ClassRoomModel.Student" Width="1.5" PointX="7.5" PointY="4.625" Height="1.9700325520833388" />
         <EntityTypeShape EntityType="ClassRoomModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9700325520833388" />
@@ -884,16 +886,14 @@
           <ConnectorPoint PointX="15" PointY="6.9841113281250031" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Messages" >
-          <ConnectorPoint PointX="11.25" PointY="6.8538317871093781" />
-          <ConnectorPoint PointX="14.25" PointY="6.8538317871093781" />
-        </AssociationConnector>
-        <AssociationConnector Association="ClassRoomModel.FK_Users_Notes" >
-          <ConnectorPoint PointX="11.25" PointY="5.5805261230468766" />
-          <ConnectorPoint PointX="12" PointY="5.5805261230468766" />
+          <ConnectorPoint PointX="11.25" PointY="5.6170556640625016" />
+          <ConnectorPoint PointX="14.25" PointY="5.6170556640625016" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Photos" >
-          <ConnectorPoint PointX="10.5" PointY="7.8282885742187531" />
+          <ConnectorPoint PointX="10.5" PointY="7.82828857421875" />
           <ConnectorPoint PointX="10.5" PointY="9.1760359700520837" />
+          <ConnectorPoint PointX="10.822919166666667" PointY="9.1760359700520837" />
+          <ConnectorPoint PointX="10.989585833333335" PointY="9.1760359700520837" />
           <ConnectorPoint PointX="12" PointY="9.1760359700520837" />
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Students" >
@@ -902,8 +902,14 @@
         </AssociationConnector>
         <AssociationConnector Association="ClassRoomModel.FK_Users_Teachers" >
           <ConnectorPoint PointX="3.75" PointY="6.9180916341145888" />
-          <ConnectorPoint PointX="3.75" PointY="7.4704597981770888" />
-          <ConnectorPoint PointX="9.75" PointY="7.4704597981770888" />
+          <ConnectorPoint PointX="3.75" PointY="7.4704597981770871" />
+          <ConnectorPoint PointX="9.75" PointY="7.4704597981770871" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ClassRoomModel.Note" Width="1.5" PointX="13.875" PointY="11.375" Height="3.4981901041666745" />
+        <AssociationConnector Association="ClassRoomModel.FK_Users_Notes" >
+          <ConnectorPoint PointX="10.9062525" PointY="7.82828857421875" />
+          <ConnectorPoint PointX="10.9062525" PointY="13.124095052083337" />
+          <ConnectorPoint PointX="13.875" PointY="13.124095052083337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

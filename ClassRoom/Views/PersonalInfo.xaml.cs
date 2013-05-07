@@ -31,7 +31,7 @@ namespace ClassRoom.Views
             classRoomEntities = new ClassRoom.ClassRoomEntities();
 
             var u = from m in classRoomEntities.Users
-                               where m.UserID == CommonClass.UserTicket.UserNO
+                               where m.UserID == CommonClass.UserTicket.UserInfo.UserID
                                select m;
             this.DataContext = u.ToList().First();
             //InitRoleCombo();

@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Collections.Generic;
+using ClassRoom.Model;
 
 namespace DiagramDesigner
 {
@@ -97,6 +98,12 @@ namespace DiagramDesigner
                     default:
                         break;
                 }
+                NoteEntity note = this.designerItem.Tag as NoteEntity;
+                note.DataStatus = ClassRoom.Common.DataStatusEnum.Updated;
+                note.Note.X = Canvas.GetLeft(this.designerItem);
+                note.Note.Y = Canvas.GetTop(this.designerItem);
+                note.Note.Width = this.designerItem.Width;
+                note.Note.Height = this.designerItem.Height;
             }
 
             e.Handled = true;
