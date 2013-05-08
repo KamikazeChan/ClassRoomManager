@@ -10,7 +10,7 @@ using System.IO;
 using System.Xml;
 using System.Data;
 
-namespace SunAngel.Util
+namespace ClassRoom.Util
 {
     public class Common
     {

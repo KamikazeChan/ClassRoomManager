@@ -42,12 +42,17 @@
       <HintPath>C:\Users\Administrator\Desktop\DiagramDesignerPart1_src\DiagramDesignerPart1\MoveResize\bin\Debug\MoveResize.exe</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -66,14 +71,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ColorHelpers.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Common\DataStatusEnum.cs" />
+    <Compile Include="Common\ImageThumbnail.cs" />
+    <Compile Include="Common\ImageUpload.cs" />
+    <Compile Include="Common\UploadBase.cs" />
+    <Compile Include="Model\DigitalFileEntity.cs" />
+    <Compile Include="Model\DigitalFileExtensionTypeEntity.cs" />
+    <Compile Include="Model\DigitalFileInfoEntity.cs" />
+    <Compile Include="Model\FileProperty.cs" />
     <Compile Include="Model\NoteView.cs" />
     <Compile Include="Presenters\ColorBrushConverter.cs" />
     <Compile Include="Resources\Note\Adorners\ResizeRotateAdorner.cs" />
     <Compile Include="Resources\Note\Adorners\ResizeRotateChrome.cs" />
     <Compile Include="Resources\Note\Adorners\SizeAdorner.cs" />
     <Compile Include="Resources\Note\Adorners\SizeChrome.cs" />
-    <Compile Include="Common\Common.cs" />
+    <Compile Include="Common\MyCommon.cs" />
     <Compile Include="Common\RichTextBox.cs" />
     <Compile Include="Common\TicketInfo.cs" />
     <Compile Include="Common\UserRoleTypeEnum.cs" />
@@ -90,21 +103,21 @@
     <Compile Include="Model\Picture.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="Presenters\ApplicationController.cs" />
-    <Compile Include="Views\NoteView\DesignerItemDecorator.cs" />
+    <Compile Include="Views\NoteManager\DesignerItemDecorator.cs" />
     <Compile Include="UserControls\EditTextBox.xaml.cs">
       <DependentUpon>EditTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NoteView\MoveThumb.cs" />
-    <Compile Include="Views\NoteView\ResizeThumb.cs" />
-    <Compile Include="Views\NoteView\RotateThumb.cs" />
-    <Compile Include="Views\ArticleView\ArticleList.xaml.cs">
+    <Compile Include="Views\NoteManager\MoveThumb.cs" />
+    <Compile Include="Views\NoteManager\ResizeThumb.cs" />
+    <Compile Include="Views\NoteManager\RotateThumb.cs" />
+    <Compile Include="Views\ArticleManager\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArticleView\DocumentManager.cs" />
-    <Compile Include="Views\ArticleView\ArticleAdd.xaml.cs">
+    <Compile Include="Views\ArticleManager\DocumentManager.cs" />
+    <Compile Include="Views\ArticleManager\ArticleAdd.xaml.cs">
       <DependentUpon>ArticleAdd.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArticleView\TextEditorToolbar.xaml.cs">
+    <Compile Include="Views\ArticleManager\TextEditorToolbar.xaml.cs">
       <DependentUpon>TextEditorToolbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presenters\SexRadioConverter.cs" />
@@ -115,21 +128,26 @@
     <Compile Include="UserControls\MediaPlayer.xaml.cs">
       <DependentUpon>MediaPlayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginView.xaml.cs">
+    <Compile Include="Views\UserManager\DragCanvas.cs" />
+    <Compile Include="Views\UserManager\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NoteView\NoteView.xaml.cs">
+    <Compile Include="Views\NoteManager\NoteView.xaml.cs">
       <DependentUpon>NoteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PersonalInfo.xaml.cs">
+    <Compile Include="Views\UserManager\PersonalInfo.xaml.cs">
       <DependentUpon>PersonalInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PictureView\Photo.cs" />
-    <Compile Include="Views\PictureView\Photos.cs" />
-    <Compile Include="Views\PictureView\PictureView.xaml.cs">
-      <DependentUpon>PictureView.xaml</DependentUpon>
+    <Compile Include="Views\PhotoManager\Photo.cs" />
+    <Compile Include="Views\PhotoManager\Photos.cs" />
+    <Compile Include="Views\PhotoManager\PhotoUpload.xaml.cs">
+      <DependentUpon>PhotoUpload.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SigninView.xaml.cs">
+    <Compile Include="Views\PhotoManager\PhotoView.xaml.cs">
+      <DependentUpon>PhotoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserManager\SelectionCanvas.cs" />
+    <Compile Include="Views\UserManager\SigninView.xaml.cs">
       <DependentUpon>SigninView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
@@ -141,9 +159,15 @@
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserManager\UcImageCropper.xaml.cs">
+      <DependentUpon>UcImageCropper.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VideoView.xaml.cs">
       <DependentUpon>VideoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\CookieHelper.cs" />
+    <Compile Include="Common\JsonObject.cs" />
+    <Compile Include="Common\ValidationCodeImageGenerator.cs" />
     <Page Include="FillForm\AddTeacher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,15 +208,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArticleView\ArticleList.xaml">
+    <Page Include="Views\ArticleManager\ArticleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArticleView\ArticleAdd.xaml">
+    <Page Include="Views\ArticleManager\ArticleAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ArticleView\TextEditorToolbar.xaml">
+    <Page Include="Views\ArticleManager\TextEditorToolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -212,23 +236,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LoginView.xaml">
+    <Page Include="Views\UserManager\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NoteView\NoteView.xaml">
+    <Page Include="Views\NoteManager\NoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PersonalInfo.xaml">
+    <Page Include="Views\UserManager\PersonalInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PictureView\PictureView.xaml">
+    <Page Include="Views\PhotoManager\PhotoUpload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PhotoManager\PhotoView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SigninView.xaml">
+    <Page Include="Views\UserManager\SigninView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +271,10 @@
     <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserManager\UcImageCropper.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\VideoView.xaml">
       <Generator>MSBuild:Compile</Generator>
