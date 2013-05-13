@@ -17,6 +17,21 @@
     <WarningLevel>4</WarningLevel>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -36,6 +51,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MoveResize">
@@ -57,7 +81,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -70,108 +93,94 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\ColorHelpers.cs" />
-    <Compile Include="Common\Common.cs" />
-    <Compile Include="Common\DataStatusEnum.cs" />
-    <Compile Include="Common\ImageThumbnail.cs" />
-    <Compile Include="Common\ImageUpload.cs" />
-    <Compile Include="Common\UploadBase.cs" />
-    <Compile Include="Model\DigitalFileEntity.cs" />
-    <Compile Include="Model\DigitalFileExtensionTypeEntity.cs" />
-    <Compile Include="Model\DigitalFileInfoEntity.cs" />
-    <Compile Include="Model\FileProperty.cs" />
-    <Compile Include="Model\NoteView.cs" />
-    <Compile Include="Presenters\ColorBrushConverter.cs" />
-    <Compile Include="Resources\Note\Adorners\ResizeRotateAdorner.cs" />
-    <Compile Include="Resources\Note\Adorners\ResizeRotateChrome.cs" />
-    <Compile Include="Resources\Note\Adorners\SizeAdorner.cs" />
-    <Compile Include="Resources\Note\Adorners\SizeChrome.cs" />
-    <Compile Include="Common\MyCommon.cs" />
-    <Compile Include="Common\RichTextBox.cs" />
-    <Compile Include="Common\TicketInfo.cs" />
-    <Compile Include="Common\UserRoleTypeEnum.cs" />
-    <Compile Include="FillForm\AddTeacher.xaml.cs">
-      <DependentUpon>AddTeacher.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
+    <Compile Include="Common.cs" />
+    <Compile Include="DB\BLL\ClassesBLL.cs" />
+    <Compile Include="DB\BLL\ImageThumbnail.cs" />
+    <Compile Include="DB\BLL\ImageUpload.cs" />
+    <Compile Include="DB\BLL\NoteBLL.cs" />
+    <Compile Include="DB\BLL\StudentDLL.cs" />
+    <Compile Include="DB\BLL\TeacherBLL.cs" />
+    <Compile Include="DB\BLL\UploadBase.cs" />
+    <Compile Include="DB\BLL\UserBLL.cs" />
+    <Compile Include="DB\EntityModel\CRManagerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>CRManagerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\ClassRoomEnum.cs" />
-    <Compile Include="Model\Media.cs" />
-    <Compile Include="Model\Picture.cs" />
-    <Compile Include="Notifier.cs" />
+    <Compile Include="DB\Enum\ClassRoomEnum.cs" />
+    <Compile Include="DB\Enum\DataStatusEnum.cs" />
+    <Compile Include="DB\Enum\UserRoleTypeEnum.cs" />
+    <Compile Include="DB\Model\DigitalFileEntity.cs" />
+    <Compile Include="DB\Model\DigitalFileExtensionTypeEntity.cs" />
+    <Compile Include="DB\Model\DigitalFileInfoEntity.cs" />
+    <Compile Include="DB\Model\FileProperty.cs" />
+    <Compile Include="DB\Model\Media.cs" />
+    <Compile Include="DB\Model\Notifier.cs" />
+    <Compile Include="DB\View\ArticleView.cs" />
+    <Compile Include="DB\View\ClassView.cs" />
+    <Compile Include="DB\View\CourseView.cs" />
+    <Compile Include="DB\View\MessageView.cs" />
+    <Compile Include="DB\View\NoteView.cs" />
+    <Compile Include="DB\View\PhotoView.cs" />
+    <Compile Include="DB\View\StudentView.cs" />
+    <Compile Include="DB\View\TeacherView.cs" />
+    <Compile Include="DB\View\UserView.cs" />
+    <Compile Include="Presenters\ColorBrushConverter.cs" />
+    <Compile Include="DrawCanvas\ResizeRotateAdorner.cs" />
+    <Compile Include="DrawCanvas\ResizeRotateChrome.cs" />
+    <Compile Include="DrawCanvas\SizeAdorner.cs" />
+    <Compile Include="DrawCanvas\SizeChrome.cs" />
+    <Compile Include="Presenters\DoubleFormatConverter.cs" />
     <Compile Include="Presenters\ApplicationController.cs" />
-    <Compile Include="Views\NoteManager\DesignerItemDecorator.cs" />
+    <Compile Include="DrawCanvas\DesignerItemDecorator.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="TicketInfo.cs" />
     <Compile Include="UserControls\EditTextBox.xaml.cs">
       <DependentUpon>EditTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NoteManager\MoveThumb.cs" />
-    <Compile Include="Views\NoteManager\ResizeThumb.cs" />
-    <Compile Include="Views\NoteManager\RotateThumb.cs" />
-    <Compile Include="Views\ArticleManager\ArticleList.xaml.cs">
+    <Compile Include="DrawCanvas\MoveThumb.cs" />
+    <Compile Include="DrawCanvas\ResizeThumb.cs" />
+    <Compile Include="DrawCanvas\RotateThumb.cs" />
+    <Compile Include="ViewForms\ArticleManager\ArticleList.xaml.cs">
       <DependentUpon>ArticleList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArticleManager\DocumentManager.cs" />
-    <Compile Include="Views\ArticleManager\ArticleAdd.xaml.cs">
+    <Compile Include="ViewForms\ArticleManager\ArticleAdd.xaml.cs">
       <DependentUpon>ArticleAdd.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArticleManager\TextEditorToolbar.xaml.cs">
+    <Compile Include="ViewForms\ArticleManager\TextEditorToolbar.xaml.cs">
       <DependentUpon>TextEditorToolbar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Presenters\SexRadioConverter.cs" />
-    <Compile Include="Presenters\MediaPresenter.cs" />
     <Compile Include="Presenters\MenuPresenter.cs" />
-    <Compile Include="Presenters\BoolConverseConverter.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="UserControls\MediaPlayer.xaml.cs">
-      <DependentUpon>MediaPlayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserManager\DragCanvas.cs" />
-    <Compile Include="Views\UserManager\LoginView.xaml.cs">
+    <Compile Include="DrawCanvas\DragCanvas.cs" />
+    <Compile Include="ViewForms\UserManager\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NoteManager\NoteView.xaml.cs">
-      <DependentUpon>NoteView.xaml</DependentUpon>
+    <Compile Include="ViewForms\NoteManager\NoteViewForm.xaml.cs">
+      <DependentUpon>NoteViewForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserManager\PersonalInfo.xaml.cs">
+    <Compile Include="ViewForms\UserManager\PersonalInfo.xaml.cs">
       <DependentUpon>PersonalInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PhotoManager\Photo.cs" />
-    <Compile Include="Views\PhotoManager\Photos.cs" />
-    <Compile Include="Views\PhotoManager\PhotoUpload.xaml.cs">
+    <Compile Include="ViewForms\PhotoManager\PhotoUpload.xaml.cs">
       <DependentUpon>PhotoUpload.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PhotoManager\PhotoView.xaml.cs">
-      <DependentUpon>PhotoView.xaml</DependentUpon>
+    <Compile Include="ViewForms\PhotoManager\PhotoViewForm.xaml.cs">
+      <DependentUpon>PhotoViewForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserManager\SelectionCanvas.cs" />
-    <Compile Include="Views\UserManager\SigninView.xaml.cs">
+    <Compile Include="DrawCanvas\SelectionCanvas.cs" />
+    <Compile Include="ViewForms\UserManager\SigninView.xaml.cs">
       <DependentUpon>SigninView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MenuView.xaml.cs">
+    <Compile Include="ViewForms\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MusicView.xaml.cs">
-      <DependentUpon>MusicView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserManager\UcImageCropper.xaml.cs">
+    <Compile Include="ViewForms\UserManager\UcImageCropper.xaml.cs">
       <DependentUpon>UcImageCropper.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VideoView.xaml.cs">
-      <DependentUpon>VideoView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\CookieHelper.cs" />
-    <Compile Include="Common\JsonObject.cs" />
-    <Compile Include="Common\ValidationCodeImageGenerator.cs" />
-    <Page Include="FillForm\AddTeacher.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,23 +193,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Note\DesignerItem.xaml">
+    <Page Include="Resources\CustomScrollViewer .xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Note\ResizeRotateChrome.xaml">
+    <Page Include="Resources\DesignerItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Note\SCrollViewStyle.xaml">
+    <Page Include="Resources\ResizeRotateChrome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Note\SizeChrome.xaml">
+    <Page Include="Resources\SCrollViewStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Simple Styles.xaml">
+    <Page Include="Resources\SizeChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Simple Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -208,15 +221,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArticleManager\ArticleList.xaml">
+    <Page Include="ViewForms\ArticleManager\ArticleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArticleManager\ArticleAdd.xaml">
+    <Page Include="ViewForms\ArticleManager\ArticleAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ArticleManager\TextEditorToolbar.xaml">
+    <Page Include="ViewForms\ArticleManager\TextEditorToolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -232,51 +245,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\MediaPlayer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserManager\LoginView.xaml">
+    <Page Include="ViewForms\UserManager\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NoteManager\NoteView.xaml">
+    <Page Include="ViewForms\NoteManager\NoteViewForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserManager\PersonalInfo.xaml">
+    <Page Include="ViewForms\UserManager\PersonalInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PhotoManager\PhotoUpload.xaml">
+    <Page Include="ViewForms\PhotoManager\PhotoUpload.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PhotoManager\PhotoView.xaml">
+    <Page Include="ViewForms\PhotoManager\PhotoViewForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserManager\SigninView.xaml">
+    <Page Include="ViewForms\UserManager\SigninView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MenuView.xaml">
+    <Page Include="ViewForms\MenuView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MusicView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Test.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserManager\UcImageCropper.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\VideoView.xaml">
+    <Page Include="ViewForms\UserManager\UcImageCropper.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -297,9 +294,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Entertainment.png" />
-    <Resource Include="Resources\Literatrue.png" />
-    <Resource Include="Resources\WordBoard.png" />
+    <Resource Include="Resources\Icons\Literatrue.png" />
+    <Resource Include="Resources\Icons\WordBoard.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\cut.png" />
@@ -312,26 +308,59 @@
     <Resource Include="Resources\Icons\text_underline.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Assets\close2.png" />
-    <Resource Include="Resources\Assets\nback.png" />
-    <Resource Include="Resources\Assets\nforward.png" />
-    <Resource Include="Resources\Assets\thisimage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Resource Include="Resources\Icons\close2.png" />
+    <Resource Include="Resources\Icons\nback.png" />
+    <Resource Include="Resources\Icons\nforward.png" />
+    <Resource Include="Resources\Icons\thisimage.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Properties\DataSources\ClassRoomEntities.datasource" />
+    <EntityDeploy Include="DB\EntityModel\CRManagerModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CRManagerModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\add.png" />
+    <Resource Include="Resources\Icons\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\exit.png" />
+    <Resource Include="Resources\Icons\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{226796F4-B5F8-4CEF-AB5C-776D3F5D05B0}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Photo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

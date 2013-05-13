@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using ClassRoom.Presenters;
-using ClassRoom.Common;
 using System;
 
 namespace ClassRoom
@@ -21,7 +20,17 @@ namespace ClassRoom
 
         public void TransitionTo(object view)
         {
-            currentView.Content = view;
+
+            if (view is Window)
+            {
+
+                ((Window)view).Show();
+                //this.Close();
+            }
+            else
+            {
+                currentView.Content = view;
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

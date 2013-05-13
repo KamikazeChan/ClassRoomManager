@@ -1,7 +1,10 @@
 using System;
 using System.Windows.Controls;
-using ClassRoom.Model;
+
 using ClassRoom.Views;
+using ClassRoom.ViewForms.NoteManager;
+using ClassRoom.Views.ArticleView;
+using ClassRoom.ViewForms.PhotoManager;
 
 namespace ClassRoom.Presenters
 {
@@ -12,6 +15,7 @@ namespace ClassRoom.Presenters
         public MenuPresenter(ApplicationController controller)
         {
             _controller = controller;
+            //MenuView menu = new MenuView(this);
             _controller.DisplayInShell(new MenuView(this));
         }
 
@@ -29,49 +33,50 @@ namespace ClassRoom.Presenters
 
         public void ListenToMusic()
         {
-            Display<MusicView, Media>(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyMusic),
-                "*.wma", "*.mp3"
-                );
+            //Display<MusicView, Media>(
+            //    Environment.GetFolderPath(Environment.SpecialFolder.MyMusic),
+            //    "*.wma", "*.mp3"
+            //    );
         }
 
         public void WatchVideo()
         {
-            Display<VideoView, Media>(
-                _controller.RequestDirectoryFromUser(),
-                "*.wmv"
-                );
+            //Display<VideoView, Media>(
+            //    _controller.RequestDirectoryFromUser(),
+            //    "*.wmv"
+            //    );
         }
 
         private void Display<View, MediaType>(
             string mediaPath,
             params string[] extensions
             )
-            where View : UserControl, new()
-            where MediaType : Media, new()
         {
-            MediaPresenter<MediaType> presenter =
-                new MediaPresenter<MediaType>(mediaPath, extensions);
 
-            View view = new View();
-            view.DataContext = presenter;
 
-            _controller.DisplayInShell(view);
+            //View view = new View();
+            //view.DataContext = presenter;
+
+            //_controller.DisplayInShell(view);
         }
 
         internal void WatchWordBoard()
         {
-            throw new NotImplementedException();
-        }
+            NoteViewForm window = new NoteViewForm();
+            _controller.DisplayInShell(window);
 
-        internal void GotoEntertainment()
-        {
-            throw new NotImplementedException();
-        }
+        }       
 
         internal void DisplayLiteratrue()
         {
-            throw new NotImplementedException();
+            ArticleList window = new ArticleList();
+            _controller.DisplayInShell(window);
+        }
+
+        internal void GotoPhoto()
+        {
+            PhotoViewForm window = new PhotoViewForm();
+            _controller.DisplayInShell(window);
         }
     }
 }
