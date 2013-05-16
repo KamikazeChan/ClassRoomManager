@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ClassRoom.Views.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<UserControl.Resources>
+		<VisualBrush x:Key="bg">
+		<VisualBrush.Visual>
+		<Canvas x:Name="canvas" 
+                Background="{StaticResource bgBrush}">
+    		<Ellipse Canvas.Top="260" Canvas.Left="-10"
+                     Width="800" Height="380" >
+    			<Ellipse.Fill>
+    				<RadialGradientBrush>
+    					<GradientStop Color="{StaticResource bgColor}" Offset="1"/>
+    					<GradientStop Color="{StaticResource paleColor}" Offset="0"/>
+    				</RadialGradientBrush>
+    			</Ellipse.Fill>
+    		</Ellipse>
+    		<Ellipse Canvas.Top="310" Canvas.Left="210"
+                     Width="360" Height="130" >
+    			<Ellipse.Fill>
+    				<RadialGradientBrush>
+    					<GradientStop Color="#00FFFFFF" Offset="1"/>
+    					<GradientStop Color="#E5FFFFFF" Offset="0.268"/>
+    				</RadialGradientBrush>
+    			</Ellipse.Fill>
+    		</Ellipse>
+			<Canvas Width="790" Height="314">
+				<Canvas.BitmapEffect>
+					<BlurBitmapEffect Radius="5"/>
+				</Canvas.BitmapEffect>
+				<Path Width="790" Height="314" 
+                      Stretch="Fill" 
+                      Data="M0,0 L0,295 400,310 800,295 800,0 z">
+					<Path.Fill>
+						<SolidColorBrush Color="{DynamicResource bgColor}"/>
+					</Path.Fill>
+				</Path>
+				<Path Width="790" Height="314" 
+                      Stretch="Fill"
+                      Data="M0,0 L0,295 400,310 800,295 800,0 z">
+					<Path.Fill>
+						<RadialGradientBrush>
+							<RadialGradientBrush.RelativeTransform>
+								<TransformGroup>
+									<ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                                    ScaleX="1" ScaleY="2"/>
+									<TranslateTransform X="0" Y="0.6"/>
+								</TransformGroup>
+							</RadialGradientBrush.RelativeTransform>
+							<GradientStop Color="#00FFF0A5" Offset="1"/>
+							<GradientStop Color="{DynamicResource paleColor}" Offset="0"/>
+						</RadialGradientBrush>
+					</Path.Fill>
+				</Path>
+			</Canvas>
+    	</Canvas>
+		</VisualBrush.Visual>
+		</VisualBrush>
+	</UserControl.Resources>
+    <Canvas Background="{DynamicResource bg}" 
+            Width="800" Height="600">
+        <TextBlock Canvas.Top="70" Canvas.Left="165"
+                   Foreground="{DynamicResource textBrush}"
+                   FontSize="36" FontWeight="Bold"
+                   Text="欢迎进入班级管理主页">
+        	<TextBlock.BitmapEffect>
+        		<OuterGlowBitmapEffect GlowColor="{DynamicResource bgColor}" 
+                                       GlowSize="5" Opacity="0.65"/>
+        	</TextBlock.BitmapEffect>
+        </TextBlock>
+		<Button Style="{StaticResource MainMenuButtonStyle}"
+                Click="Photo_Click" 
+                Tag="相册"
+                Canvas.Top="220" Canvas.Left="550">
+			<Button.LayoutTransform>
+				<TransformGroup>
+					<ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+				</TransformGroup>
+			</Button.LayoutTransform>
+            <Image Source="/ClassRoom;component/Resources/Icons/Photo.png" />
+		</Button>
+		<Button Style="{StaticResource MainMenuButtonStyle}"
+                Click="WordBoard_Click" 
+                Tag="留言板"
+                Canvas.Top="220" Canvas.Left="130">
+			<Button.LayoutTransform>
+				<TransformGroup>
+					<ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+				</TransformGroup>
+			</Button.LayoutTransform>
+            <Image Source="/ClassRoom;component/Resources/Icons/WordBoard.png" />
+		</Button>
+        <Button Style="{StaticResource MainMenuButtonStyle}"
+                Click="Literatrue_Click"
+                Tag="文学"
+                Canvas.Top="230" Canvas.Left="320">
+            <Image Source="/ClassRoom;component/Resources/Icons/Literatrue.png" />
+        </Button>
+        <Button Canvas.Left="16" Canvas.Top="4" Content="个人资料" Height="23" Name="btnPersonInfoUpdate" Width="75" Click="btnPersonInfoUpdate_Click" />
+    </Canvas>
+</UserControl>

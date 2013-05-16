@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ClassRoom.UserControls.EditTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600" Loaded="UserControl_Loaded">
+    <Grid Height="294" Width="594" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29*" />
+            <RowDefinition Height="268*" />
+        </Grid.RowDefinitions>
+        <ToolBarTray ComboBox.SelectionChanged="TextEditorToolbar_SelectionChanged">
+            <ToolBar>
+                <Button Command="ApplicationCommands.Open" ToolTip="Open">
+                    <Image Source="/ClassRoom;component/Resources/Icons/folder_page.png" />
+                </Button>
+                <Button Command="ApplicationCommands.Save" ToolTip="Save">
+                    <Image Source="/ClassRoom;component/Resources/Icons/page_save.png" />
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="ApplicationCommands.Cut" ToolTip="Cut">
+                    <Image />
+                </Button>
+                <Button Command="ApplicationCommands.Copy" ToolTip="Copy">
+                    <Image Source="/ClassRoom;component/Resources/Icons/page_copy.png" />
+                </Button>
+                <Button Command="ApplicationCommands.Paste" ToolTip="Paste">
+                    <Image Source="/ClassRoom;component/Resources/Icons/page_paste.png" />
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <ToggleButton Command="EditingCommands.ToggleBold" Name="boldButton" ToolTip="Bold">
+                    <Image ImageFailed="Image_ImageFailed" Source="/ClassRoom;component/Resources/Icons/text_bold.png" />
+                </ToggleButton>
+                <ToggleButton Command="EditingCommands.ToggleItalic" Name="italicButton" ToolTip="Italic">
+                    <Image Source="/ClassRoom;component/Resources/Icons/text_italic.png" />
+                </ToggleButton>
+                <ToggleButton Command="EditingCommands.ToggleUnderline" Name="underlineButton" ToolTip="Underline">
+                    <Image Source="/ClassRoom;component/Resources/Icons/text_underline.png" />
+                </ToggleButton>
+                <Separator />
+                <ComboBox ItemsSource="{x:Static Fonts.SystemFontFamilies}" MinWidth="100" Name="fonts" ToolTip="Font" />
+                <ComboBox MinWidth="40" Name="fontSize" ToolTip="Font Size" />
+            </ToolBar>
+        </ToolBarTray>
+        <RichTextBox AcceptsReturn="True" AcceptsTab="True" Name="rtbBody" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" Grid.Row="1" SelectionChanged="body_SelectionChanged"/>
+    </Grid>
+</UserControl>
